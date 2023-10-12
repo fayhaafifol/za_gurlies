@@ -49,11 +49,11 @@ class _homePageUISate extends State<homePage>{
       body: Container(
         padding: const EdgeInsets.all(10),
         child: ListView(
-          children:const [  SizedBox(height: 30),
+         children:const [  SizedBox(height: 30),
         ]
-
         ),
       ),
+
        floatingActionButton: FloatingActionButton(
         onPressed: (){
           Navigator.push(
@@ -63,6 +63,7 @@ class _homePageUISate extends State<homePage>{
         },
         child: Icon(Icons.add)
       ),
+      
     );
 }
 
@@ -504,10 +505,15 @@ class privacy extends StatelessWidget {
 //---------------------------CLASS POST-----------------------
 
 class post_page extends StatelessWidget {
-  const post_page({super.key});
+   const post_page({super.key});
+
 
   @override
     Widget build(BuildContext context){
+  final _textController = TextEditingController();
+  //user text input
+  String userPost = '';
+  
     return Scaffold(
       appBar: AppBar(
         title: const Text("Post",style: TextStyle(fontSize:26)),
@@ -515,47 +521,79 @@ class post_page extends StatelessWidget {
       body:
       
        Container(
-        padding: const EdgeInsets.all(10),
-        child:// Column(
-         // mainAxisAlignment:MainAxisAlignment.center,
-          //crossAxisAlignment:CrossAxisAlignment.end,
+        padding: const EdgeInsets.all(20),
+        child:
+
           ListView(
-          
           children: [
-             const SizedBox(height: 30),
-             CupertinoButton(
-              onPressed: (){},
+           Expanded(child: Container(
+            child: Center(
+            
+            child: Text(userPost,style: TextStyle(fontSize: 35),)
+            ),
+            ),
+            ),
+            
+
+
+
+            const SizedBox(height: 350),
+               TextFormField(
+                  controller:_textController,
+                  decoration: InputDecoration(
+                    labelText: 'Your Post',
+                    suffixIcon: IconButton(
+                      onPressed: (){
+                        _textController.clear();
+                      },
+                      icon:const Icon(
+                      Icons.clear,
+                      color: Colors.black,
+                    ),
+                    ),
+                    hintText: 'what\'s on your mind??',
+                    border:const OutlineInputBorder(),
+
+                  ),
+                ),
+             const SizedBox(height: 150),
+             
+             MaterialButton(
+              onPressed: ()async{
+                 // setState(() {
+                   userPost = _textController.text;
+
+              //});
+              },
 
               padding: EdgeInsets.zero,
              child:Container(
               alignment: Alignment.center,
-              width: 260,
+              width: 220,
               height: 40,
               decoration: BoxDecoration(color: Colors.orange,
               borderRadius: BorderRadius.circular(37),
              ),
-             child:Row(
+             
+             child: const Row(
+              
               mainAxisAlignment: MainAxisAlignment.center,
-            
               children: [
-
+                
               Icon(
                   Icons.add,
                   color: Colors.black,
                   size:35 ,
                 ),
                 Text("post" ,style: TextStyle( color:Colors.black ,fontSize:25,fontWeight:FontWeight.normal ,))
-
                 ]
-                ),
-                ),
-               ),
-          ]  
+              ),
+            ),    
           ),
-           
-        
-        //),
+        ] 
       ),
+                
+          ),
     );
   }
 }
