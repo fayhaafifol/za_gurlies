@@ -1,4 +1,5 @@
 //import 'dart:ui_web';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 //import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -8,7 +9,9 @@ import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:table_calendar/table_calendar.dart';
 
-void main () {
+void main () async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(const MyApp());
 
 }
@@ -20,10 +23,10 @@ class MyApp extends StatelessWidget {
 
   Widget build(BuildContext context){
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: "Nolfymos " ,
       theme: ThemeData(primarySwatch: Colors.orange),
-      home: post(),//homePage(),
-
+      home: homePage(),
     );
 
   }
@@ -35,8 +38,6 @@ class MyApp extends StatelessWidget {
 class  homePage extends StatefulWidget {
   @override
   _homePageUISate createState () => _homePageUISate ();
-
-
 }
 
 class _homePageUISate extends State<homePage>{
@@ -54,8 +55,16 @@ class _homePageUISate extends State<homePage>{
           children:const [  SizedBox(height: 30),
           ]
 
-
       ),
+    ),
+    floatingActionButton: FloatingActionButton(
+        onPressed: (){
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const post_page ()),
+          );
+        },
+        child: Icon(Icons.add)
     ),
   );
 }
@@ -95,7 +104,7 @@ class NavigationDrawer extends StatelessWidget{
 //------------------HOME IN MENU----------------------
 
           ListTile(
-            leading: const Icon(Icons.home_outlined,size: 30,color: Colors.deepOrange,),
+            leading: const Icon(Icons.home,size: 30,color: Colors.deepOrange,),
             title: const Text("Home",style: TextStyle(fontSize: 23),),
             onTap: () => Navigator.of(context).pushReplacement(MaterialPageRoute(builder:(context) =>  homePage(),)),
           ),
@@ -111,7 +120,7 @@ class NavigationDrawer extends StatelessWidget{
 //------------------SCHEDULE IN MENU----------------------
 
           ListTile(
-            leading: const Icon(Icons.calendar_month_outlined,size: 30,color: Colors.deepOrange,),
+            leading: const Icon(FontAwesomeIcons.calendarDay,size: 30,color: Colors.deepOrange,),
             title: const Text("Schedule",style: TextStyle(fontSize: 23),),
             onTap: (){
               Navigator.pop(context);
@@ -145,8 +154,6 @@ class NavigationDrawer extends StatelessWidget{
               Navigator.of(context).push(MaterialPageRoute(builder:(context) =>  SettingsPage(),));
             },
           ),
-
-
         ],
       )
   );
@@ -162,13 +169,14 @@ class SchedulePage extends StatelessWidget{
       appBar: AppBar(
         title: const Text("Schedule",style: TextStyle(fontSize:26)),
       ),
-      body: Column(
+      body:
+      Column(
+
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(DateFormat.yMMMMd().format(DateTime.now()),style: TextStyle(fontSize: 30,fontWeight: FontWeight.bold,color: Colors.black54)),
           Text('Today',style: TextStyle(fontSize: 30,fontWeight: FontWeight.bold,color:Colors.black)),
           TableCalendar(
-            //locale: "eu_US",
             rowHeight: 43,
             headerStyle: HeaderStyle(formatButtonVisible: false , titleCentered: true),
             focusedDay: DateTime.now(),
@@ -250,7 +258,7 @@ class SettingsPage extends StatelessWidget{
               context: context,
               builder: (ctx) => AlertDialog(
                 title: const Text("Log Out",style: TextStyle(fontSize: 20),),
-                content: const Text("Do you wanna logout NOLFYMOS ?",style: TextStyle(fontSize: 20),),
+                content: const Text("Do you wanna logout NOLFYMOS ＞︿＜",style: TextStyle(fontSize: 20),),
                 actions: <Widget>[
 
                   // -------SURE text button------------
@@ -301,7 +309,7 @@ class SettingsPage extends StatelessWidget{
             TextButton(onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => const about()),
+                MaterialPageRoute(builder: (context) =>  about()),
               );
             },
               child:const Row(
@@ -371,28 +379,18 @@ class accounts extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Your Account',style: TextStyle(fontSize:26)),
       ),
-
+      //TODO  profile page
     );
   }
 }
 
-//---------------------------CLASS LOGOUT-----------------------
 
-class logout extends StatelessWidget {
-  const logout({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Scaffold(
-
-    );
-  }
-}
 
 //---------------------------CLASS ABOUT-----------------------
 
 class about extends StatelessWidget {
   const about({super.key});
+
 
   @override
   Widget build(BuildContext context) {
@@ -401,7 +399,34 @@ class about extends StatelessWidget {
         title: const Text('About',style: TextStyle(fontSize:26)),
       ),
 
+      body:   Container(
+
+          padding:const EdgeInsets.all(15),
+
+          child:const SingleChildScrollView(
+            child:
+            Text('''''''''Nolfymos is an application that helps you communicate with your pet  .
+
+Many things can be done through this application.
+
+Nolfymos is the first social media for your pet, 
+
+through which you can communicate with owners pet and you can talk to the doctor and consult him. 
+
+You can posting any thing for you pet . 
+
+There is also all information about all pets, 
+Such as what is favorite food ?  
+What is the normal length and all of that inside Nolfymos . 
+
+If you always forget the time to vaccinate your pet,there is an schedule that reminds you of the time to vaccinate your pet .''''''''''',
+              style: TextStyle(color: Colors.black, fontSize: 30 ,height: 1.5),),
+          )
+
+      ),
+
     );
+
   }
 }
 
@@ -416,51 +441,137 @@ class privacy extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Privacy and Data',style: TextStyle(fontSize:26)),
       ),
-    );
-  }
-}
-//----------------------------CLASS FOR POSTS----------------------------------
-class post extends StatelessWidget {
-  const post({super.key});
+      body: Container(
+        padding: const EdgeInsets.all(10),
+        child: ListView(
+            children: [
+              const SizedBox(height: 15),
+              TextButton(onPressed: () {  showDialog(
+                context: context,
+                builder: (ctx) => AlertDialog(
+                  title: const Text("Delete Your Account",style: TextStyle(fontSize: 20),),
+                  content: const Text("Do you wanna Delete Your Account （︶^︶）",style: TextStyle(fontSize: 20),),
+                  actions: <Widget>[
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        onPressed: (){
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => const post_page ()),
-          );
-        },
-        child: Icon(Icons.add)
+                    // -------SURE text button------------
+
+                    TextButton(
+                      onPressed: () {
+
+                        //TODO  go to Log in new account (same page for create new account)
+                      },
+                      child: Container(
+                        color: Colors.white,
+                        padding: const EdgeInsets.all(14),
+                        child: const Text("sure" ,style: TextStyle(color: Colors.black,fontSize: 20),),
+                      ),
+                    ),
+
+                    // -------SURE text button------------
+
+                    TextButton(
+                      onPressed: () {
+                        Navigator.of(ctx).pop();
+                      },
+                      child: Container(
+                        color: Colors.white,
+                        padding: const EdgeInsets.all(14),
+                        child: const Text("Cancel" ,style: TextStyle(color: Colors.black,fontSize: 20),),
+                      ),
+                    ),
+                  ],
+                ),
+              );
+
+
+              },
+                child:const Row(
+                  children: [
+                    Icon(
+                      Icons.delete_forever_outlined,
+                      color: Colors.deepOrange,
+                      size:35 ,
+                    ),
+                    SizedBox(width: 20),
+                    Text("Delete Your Account" ,style: TextStyle( color:Colors.black ,fontSize:25,fontWeight:FontWeight.normal ))
+                  ],
+                ),
+              ),
+            ]
+        ),
       ),
-
     );
   }
 }
+
+//---------------------------CLASS POST-----------------------
+
 class post_page extends StatelessWidget {
   const post_page({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context){
     return Scaffold(
-
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: (){
-          },
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-        icon:Icon(Icons.add),
-        label: Text('    Add File    ',style: TextStyle(fontSize:26)),
-
-      ),
       appBar: AppBar(
-        title: const Text('Post',style: TextStyle(fontSize:26)),
+        title: const Text("Posts",style: TextStyle(fontSize:26)),
+      ),
 
+      body:
+
+      Container(
+        padding: const EdgeInsets.all(0),
+
+        child:// Column(
+        // mainAxisAlignment:MainAxisAlignment.center,
+        //crossAxisAlignment:CrossAxisAlignment.end,
+        ListView(
+            children: [
+              Container(
+                child: TextField(
+                  decoration: InputDecoration(
+                    hintText: "Write what's on your mind (^u^)",
+                    border: OutlineInputBorder(),
+                  ),
+                ),
+              ),
+
+              const SizedBox(height: 750),
+              CupertinoButton(
+                onPressed: (){},
+
+                padding: EdgeInsets.zero,
+                child:Container(
+                  alignment: Alignment.center,
+                  width: 180,
+                  height: 60,
+                  decoration: BoxDecoration(color: Colors.orange,
+                    borderRadius: BorderRadius.circular(37),
+                  ),
+                  child:Row(
+
+                      mainAxisAlignment: MainAxisAlignment.center,
+
+                      children:const [
+
+                        Icon(
+                          Icons.add,
+                          color: Colors.black,
+                          size:35 ,
+                        ),
+                        Text("Post" ,style: TextStyle( color:Colors.black ,fontSize:25,fontWeight:FontWeight.normal ,)),
+
+
+                      ]
+                  ),
+                ),
+              ),
+            ]
+        ),
+
+
+        //),
       ),
     );
   }
 }
-
 
