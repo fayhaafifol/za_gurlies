@@ -31,6 +31,7 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_neat_and_clean_calendar: ^0.3.0+12
+  permission_handler: ^11.0.1
   table_calendar: ^3.0.9
   font_awesome_flutter: ^10.5.0
   image_cropper: ^5.0.0
