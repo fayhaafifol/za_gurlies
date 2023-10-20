@@ -5,13 +5,27 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
-import 'package:table_calendar/table_calendar.dart';
+import 'package:test2/post.dart';
+import 'package:test2/settings.dart';
+import 'package:test2/schedule.dart';
+import 'package:permission_handler/permission_handler.dart';
+
 
 void main () async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+  await Firebase.initializeApp(
+    options: FirebaseOptions(
+
+        apiKey: "AIzaSyDMBH9PXHX5mdg-eOa77Are10Eq-XfbJTs",
+        appId: "1:877282308511:android:4bd35d981bc7feb95bcdaa",
+        messagingSenderId: "877282308511",
+        projectId: "pet-project-de9a5",
+
+    ),
+  );
   runApp(const MyApp());
 
 }
@@ -38,9 +52,15 @@ class MyApp extends StatelessWidget {
 class  homePage extends StatefulWidget {
   @override
   _homePageUISate createState () => _homePageUISate ();
+
+
+
 }
 
 class _homePageUISate extends State<homePage>{
+
+
+
   @override
   Widget build(BuildContext context)=>Scaffold(
 
@@ -61,517 +81,128 @@ class _homePageUISate extends State<homePage>{
         onPressed: (){
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => const post_page ()),
+            MaterialPageRoute(builder: (context) => Post ()),
           );
         },
         child: Icon(Icons.add)
     ),
   );
+
 }
 
-
 //---------------------------CLASS MENU-----------------------
-class NavigationDrawer extends StatelessWidget{
+class NavigationDrawer extends StatelessWidget {
   const NavigationDrawer({super.key});
 
   @override
-  Widget build(BuildContext context) => Drawer(
+  Widget build(BuildContext context) =>
+      Drawer(
 
-      child: SingleChildScrollView(
-          child:Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: <Widget>[
-              buildHeader(context),
-              buildMenuItems(context),
-            ],
+          child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: <Widget>[
+                  buildHeader(context),
+                  buildMenuItems(context),
+                ],
+              )
           )
-      )
-  );
+      );
 
-  Widget buildHeader(BuildContext context)=>Container(
-    color: Colors.orange.shade700,
-    padding: EdgeInsets.only(
-      top:MediaQuery.of(context).padding.top,
-    ),
-  );
+  Widget buildHeader(BuildContext context) =>
+      Container(
+        color: Colors.orange.shade700,
+        padding: EdgeInsets.only(
+          top: MediaQuery
+              .of(context)
+              .padding
+              .top,
+        ),
+      );
 
-  Widget buildMenuItems(BuildContext context)=> Container(
-      padding:const EdgeInsets.all(10),
-      child:Wrap(
-        runSpacing: 10,
-        children: [
+  Widget buildMenuItems(BuildContext context) =>
+      Container(
+          padding: const EdgeInsets.all(10),
+          child: Wrap(
+            runSpacing: 10,
+            children: [
 
 //------------------HOME IN MENU----------------------
 
-          ListTile(
-            leading: const Icon(Icons.home,size: 30,color: Colors.deepOrange,),
-            title: const Text("Home",style: TextStyle(fontSize: 23),),
-            onTap: () => Navigator.of(context).pushReplacement(MaterialPageRoute(builder:(context) =>  homePage(),)),
-          ),
+              ListTile(
+                leading: const Icon(
+                  Icons.home, size: 30, color: Colors.pinkAccent,),
+                title: const Text("Home", style: TextStyle(fontSize: 23),),
+                onTap: () =>
+                    Navigator.of(context).pushReplacement(
+                        MaterialPageRoute(builder: (context) => homePage(),)),
+              ),
 
 //------------------GAMES IN MENU----------------------
 
-          ListTile(
-            leading: const Icon(FontAwesomeIcons.gamepad,size: 25,color: Colors.deepOrange,),
-            title: const Text("Games",style: TextStyle(fontSize: 23),),
-            onTap: (){},
-          ),
+              ListTile(
+                leading: const Icon(FontAwesomeIcons.gamepad, size: 25,
+                  color: Colors.pinkAccent,),
+                title: const Text("Games", style: TextStyle(fontSize: 23),),
+                onTap: () {},
+              ),
 
 //------------------SCHEDULE IN MENU----------------------
 
-          ListTile(
-            leading: const Icon(FontAwesomeIcons.calendarDay,size: 30,color: Colors.deepOrange,),
-            title: const Text("Schedule",style: TextStyle(fontSize: 23),),
-            onTap: (){
-              Navigator.pop(context);
-              Navigator.of(context).push(MaterialPageRoute(builder:(context) =>  SchedulePage(),));
-            },
-          ),
+              ListTile(
+                leading: const Icon(FontAwesomeIcons.calendarDay, size: 30,
+                  color: Colors.pinkAccent,),
+                title: const Text("Schedule", style: TextStyle(fontSize: 23),),
+                onTap: () {
+                  Navigator.pop(context);
+                  Navigator.of(context).push(
+                      MaterialPageRoute(builder: (context) => SchedulePage(),));
+                },
+              ),
 
 //------------------INFORMATION IN MENU----------------------
 
-          ListTile(
-            leading: const Icon(Icons.pets_outlined ,size: 25,color: Colors.deepOrange,),
-            title: const Text("Information",style: TextStyle(fontSize: 23),),
-            onTap: (){},
-          ),
+              ListTile(
+                leading: const Icon(
+                  Icons.pets_outlined, size: 25, color: Colors.pinkAccent,),
+                title: const Text(
+                  "Information", style: TextStyle(fontSize: 23),),
+                onTap: () {},
+              ),
 
 //-------------------------------CHAT IN MENU-----------------------------------
 
-          ListTile(
-            leading: const Icon(FontAwesomeIcons.solidComments ,size: 25,color: Colors.deepOrange,),
-            title: const Text("Chat",style: TextStyle(fontSize: 23),),
-            onTap: (){},
-          ),
+              ListTile(
+                leading: const Icon(FontAwesomeIcons.solidComments, size: 25,
+                  color: Colors.pinkAccent,),
+                title: const Text("Chat", style: TextStyle(fontSize: 23),),
+                onTap: () {},
+              ),
 
 //------------------CLASS SETTINGS IN MENU----------------------
 
-          ListTile(
-            leading: const Icon(Icons.settings,size: 30,color: Colors.deepOrange,),
-            title: const Text("Settings",style: TextStyle(fontSize: 23),),
-            onTap: () {
-              Navigator.pop(context);
-              Navigator.of(context).push(MaterialPageRoute(builder:(context) =>  SettingsPage(),));
-            },
-          ),
-        ],
-      )
-  );
-}
-//------------------CLASS SCHEDULE----------------------
-
-
-class SchedulePage extends StatelessWidget{
-
-  @override
-  Widget build(BuildContext context){
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text("Schedule",style: TextStyle(fontSize:26)),
-      ),
-      body:
-      Column(
-
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(DateFormat.yMMMMd().format(DateTime.now()),style: TextStyle(fontSize: 30,fontWeight: FontWeight.bold,color: Colors.black54)),
-          Text('Today',style: TextStyle(fontSize: 30,fontWeight: FontWeight.bold,color:Colors.black)),
-          TableCalendar(
-            rowHeight: 43,
-            headerStyle: HeaderStyle(formatButtonVisible: false , titleCentered: true),
-            focusedDay: DateTime.now(),
-            firstDay:DateTime.utc (2010,1,1),
-            lastDay: DateTime.utc(2040,1,1),
+              ListTile(
+                leading: const Icon(
+                  Icons.settings, size: 30, color: Colors.pinkAccent,),
+                title: const Text("Settings", style: TextStyle(fontSize: 23),),
+                onTap: () {
+                  Navigator.pop(context);
+                  Navigator.of(context).push(
+                      MaterialPageRoute(builder: (context) => SettingsPage(),));
+                },
+              ),
+            ],
           )
-        ],
-      ),
-    );
-  }
-}
-
-
-//---------------------------CLASS SETTINGS-----------------------
-
-class SettingsPage extends StatelessWidget{
-  @override
-  Widget build(BuildContext context){
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text("Settings",style: TextStyle(fontSize:26)),
-
-
-
-      ),
-      body: Container(
-        padding: const EdgeInsets.all(10),
-        child: ListView(
-          children: [
-            const SizedBox(height: 30),
-
-            const Text('Account',style: TextStyle(color:Colors.blueGrey,fontSize:25 )),
-
-// ----------------NEW ACCOUNT-----------------
-            TextButton(onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const new_accounts()),
-              );
-            },
-              child:const Row(
-                children: [
-                  Icon(
-                    Icons.add_circle_outline_rounded,
-                    color: Colors.deepOrange,
-                    size:35 ,
-                  ),
-                  SizedBox(width: 20),
-                  Text("create new account" ,style: TextStyle( color:Colors.black ,fontSize:25,fontWeight:FontWeight.normal ))
-                ],
-              ),
-            ),
-
-// ----------------YOUR ACCOUNT-----------------
-
-            TextButton(onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const accounts()),
-              );
-            },
-              child: const Row(
-                children: [
-                  Icon(
-                    Icons.account_circle_outlined ,
-                    color: Colors.deepOrange,
-                    size:35 ,
-                  ),
-                  SizedBox(width: 20),
-                  Text("Your Account" ,style: TextStyle(color: Colors.black,fontSize:25,fontWeight:FontWeight.normal ))
-                ],
-              ),
-            ),
-
-            const Text('Login',style: TextStyle(color:Colors.blueGrey,fontSize:25 )),
-
-// ----------------LOG OUT-----------------
-            TextButton(onPressed: () {  showDialog(
-              context: context,
-              builder: (ctx) => AlertDialog(
-                title: const Text("Log Out",style: TextStyle(fontSize: 20),),
-                content: const Text("Do you wanna logout NOLFYMOS ＞︿＜",style: TextStyle(fontSize: 20),),
-                actions: <Widget>[
-
-                  // -------SURE text button------------
-
-                  TextButton(
-                    onPressed: () {
-
-                      //TODO  go to sign in (first page)
-                    },
-                    child: Container(
-                      color: Colors.white,
-                      padding: const EdgeInsets.all(14),
-                      child: const Text("sure" ,style: TextStyle(color: Colors.black,fontSize: 20),),
-                    ),
-                  ),
-
-                  // -------SURE text button------------
-
-                  TextButton(
-                    onPressed: () {
-                      Navigator.of(ctx).pop();
-                    },
-                    child: Container(
-                      color: Colors.white,
-                      padding: const EdgeInsets.all(14),
-                      child: const Text("Cancel" ,style: TextStyle(color: Colors.black,fontSize: 20),),
-                    ),
-                  ),
-                ],
-              ),
-            );
-            },
-              child:const Row(
-                children: [
-                  Icon(
-                    Icons.logout_rounded,
-                    color: Colors.deepOrange,
-                    size:35 ,
-                  ),
-                  SizedBox(width: 20),
-                  Text("Logout" ,style: TextStyle( color:Colors.black ,fontSize:25,fontWeight:FontWeight.normal ))
-                ],
-              ),
-            ),
-            const Text('Support',style: TextStyle(color:Colors.blueGrey,fontSize:25 )),
-
-// ----------------ABOUT-----------------
-            TextButton(onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) =>  about()),
-              );
-            },
-              child:const Row(
-                children: [
-                  Icon(
-                    Icons.info_outline_rounded ,
-                    color: Colors.deepOrange,
-                    size:35 ,
-                  ),
-                  SizedBox(width: 20),
-                  Text("About" ,style: TextStyle( color:Colors.black ,fontSize:25,fontWeight:FontWeight.normal ))
-                ],
-              ),
-            ),
-
-
-// ----------------PRIVACY-----------------
-            TextButton(onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const privacy()),
-              );
-            },
-              child: const Row(
-                children: [
-                  Icon(
-                    Icons.https_outlined ,
-                    color: Colors.deepOrange,
-                    size:35 ,
-                  ),
-                  SizedBox(width: 20),
-                  Text("Privacy and Data" ,style: TextStyle( color:Colors.black ,fontSize:25,fontWeight:FontWeight.normal ))
-                ],
-              ),
-            ),
-
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-//---------------------------CLASS NEW ACCOUNT-----------------------
-class new_accounts extends StatelessWidget {
-  const new_accounts({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('New Accounts',style: TextStyle(fontSize:26)),
-      ),
-
-    );
-  }
-}
-
-//---------------------------CLASS ACCOUNT-----------------------
-
-class accounts extends StatelessWidget {
-  const accounts({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Your Account',style: TextStyle(fontSize:26)),
-      ),
-      //TODO  profile page
-    );
-  }
+      );
 }
 
 
 
-//---------------------------CLASS ABOUT-----------------------
-
-class about extends StatelessWidget {
-  const about({super.key});
 
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('About',style: TextStyle(fontSize:26)),
-      ),
-
-      body:   Container(
-
-          padding:const EdgeInsets.all(15),
-
-          child:const SingleChildScrollView(
-            child:
-            Text('''''''''Nolfymos is an application that helps you communicate with your pet  .
-
-Many things can be done through this application.
-
-Nolfymos is the first social media for your pet, 
-
-through which you can communicate with owners pet and you can talk to the doctor and consult him. 
-
-You can posting any thing for you pet . 
-
-There is also all information about all pets, 
-Such as what is favorite food ?  
-What is the normal length and all of that inside Nolfymos . 
-
-If you always forget the time to vaccinate your pet,there is an schedule that reminds you of the time to vaccinate your pet .''''''''''',
-              style: TextStyle(color: Colors.black, fontSize: 30 ,height: 1.5),),
-          )
-
-      ),
-
-    );
-
-  }
-}
-
-//---------------------------CLASS PRIVACY-----------------------
-
-class privacy extends StatelessWidget {
-  const privacy({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Privacy and Data',style: TextStyle(fontSize:26)),
-      ),
-      body: Container(
-        padding: const EdgeInsets.all(10),
-        child: ListView(
-            children: [
-              const SizedBox(height: 15),
-              TextButton(onPressed: () {  showDialog(
-                context: context,
-                builder: (ctx) => AlertDialog(
-                  title: const Text("Delete Your Account",style: TextStyle(fontSize: 20),),
-                  content: const Text("Do you wanna Delete Your Account （︶^︶）",style: TextStyle(fontSize: 20),),
-                  actions: <Widget>[
-
-                    // -------SURE text button------------
-
-                    TextButton(
-                      onPressed: () {
-
-                        //TODO  go to Log in new account (same page for create new account)
-                      },
-                      child: Container(
-                        color: Colors.white,
-                        padding: const EdgeInsets.all(14),
-                        child: const Text("sure" ,style: TextStyle(color: Colors.black,fontSize: 20),),
-                      ),
-                    ),
-
-                    // -------SURE text button------------
-
-                    TextButton(
-                      onPressed: () {
-                        Navigator.of(ctx).pop();
-                      },
-                      child: Container(
-                        color: Colors.white,
-                        padding: const EdgeInsets.all(14),
-                        child: const Text("Cancel" ,style: TextStyle(color: Colors.black,fontSize: 20),),
-                      ),
-                    ),
-                  ],
-                ),
-              );
 
 
-              },
-                child:const Row(
-                  children: [
-                    Icon(
-                      Icons.delete_forever_outlined,
-                      color: Colors.deepOrange,
-                      size:35 ,
-                    ),
-                    SizedBox(width: 20),
-                    Text("Delete Your Account" ,style: TextStyle( color:Colors.black ,fontSize:25,fontWeight:FontWeight.normal ))
-                  ],
-                ),
-              ),
-            ]
-        ),
-      ),
-    );
-  }
-}
-
-//---------------------------CLASS POST-----------------------
-
-class post_page extends StatelessWidget {
-  const post_page({super.key});
-
-  @override
-  Widget build(BuildContext context){
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text("Posts",style: TextStyle(fontSize:26)),
-      ),
-
-      body:
-
-      Container(
-        padding: const EdgeInsets.all(0),
-
-        child:// Column(
-        // mainAxisAlignment:MainAxisAlignment.center,
-        //crossAxisAlignment:CrossAxisAlignment.end,
-        ListView(
-            children: [
-              Container(
-                child: TextField(
-                  decoration: InputDecoration(
-                    hintText: "Write what's on your mind (^u^)",
-                    border: OutlineInputBorder(),
-                  ),
-                ),
-              ),
-
-              const SizedBox(height: 750),
-              CupertinoButton(
-                onPressed: (){},
-
-                padding: EdgeInsets.zero,
-                child:Container(
-                  alignment: Alignment.center,
-                  width: 180,
-                  height: 60,
-                  decoration: BoxDecoration(color: Colors.orange,
-                    borderRadius: BorderRadius.circular(37),
-                  ),
-                  child:Row(
-
-                      mainAxisAlignment: MainAxisAlignment.center,
-
-                      children:const [
-
-                        Icon(
-                          Icons.add,
-                          color: Colors.black,
-                          size:35 ,
-                        ),
-                        Text("Post" ,style: TextStyle( color:Colors.black ,fontSize:25,fontWeight:FontWeight.normal ,)),
 
 
-                      ]
-                  ),
-                ),
-              ),
-            ]
-        ),
 
-
-        //),
-      ),
-    );
-  }
-}
 
