@@ -1,14 +1,22 @@
+//import 'package:ffi/ffi.dart';
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:test2/main.dart';
 import 'dart:async';
 import 'dart:io';
+import 'package:get/get.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
+
+
+//Error: Unsupported operation: Platform._operatingSystem
 
 
 
@@ -23,28 +31,46 @@ class Post extends StatefulWidget {
 
 class post_page extends State<Post>  {
 
+  //final void Function()? onPressed; // Good
+  //final VoidCallback? onPressed; // Good
+  //final valuechanged<t?>? onchanged;
+
   File ? _selectimg;
+
+  //Rx<File> _selectimg = File("").obs;
 
   @override
 
-  Future _pickImage()async {
+  Future<void> _pickImage()async {
 
 
 
     final img = await ImagePicker().pickImage(source: ImageSource.gallery);
 
-    setState((){
-
-      _selectimg= File(img!.path);
+    if (img != null) {
+        _selectimg = File(img.path);
     }
-
-
-    );
   }
 
-  Future upload() async{
 
 
+  Future upload() async {
+
+    print("hello");
+
+    //final storage = FirebaseStorage.instanceFor(bucket: "gs://pet-project-de9a5.appspot.com");
+
+
+    var imgName = DateTime.now().microsecondsSinceEpoch.toString();
+
+    //Error: [firebase_storage/no-bucket] No default storage bucket could be found. Ensure you have correctly followed the Getting Started guide.
+
+    var reference = FirebaseStorage.instance.ref().child("images/$imgName.png");
+
+
+    var uploadPhoto  = reference.putFile(_selectimg!);
+
+    var downloadUrl= await(await uploadPhoto).ref.getDownloadURL();
   }
 
 
@@ -54,8 +80,6 @@ class post_page extends State<Post>  {
     final _textController = TextEditingController();
 
     String post = " ";
-
-
 
     return Scaffold(
       appBar: AppBar(
@@ -112,9 +136,7 @@ class post_page extends State<Post>  {
 
             const SizedBox(height: 230),
               MaterialButton(
-                onPressed: (){
-
-                },
+                onPressed:upload,
                 padding: EdgeInsets.zero,
                 child:Container(
                   alignment: Alignment.center,
@@ -148,18 +170,29 @@ class post_page extends State<Post>  {
         //),
       ),
 
-      floatingActionButtonLocation: FloatingActionButtonLocation.miniCenterTop,
+      floatingActionButtonLocation: FloatingActionButtonLocation.miniCenterFloat,
       floatingActionButton: FloatingActionButton(
           onPressed: (){
-            _pickImage();
+           _pickImage();
           },
           child: Icon(Icons.image_search)
       ),
-
+      /*Obx(() {
+        Image.network(photo.value.toString());
+        ,
+      }),*/
     );
   }
 
+
 }
+
+//class UploadPhoto {
+
+  //final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+
+
+//}
 
 
 
