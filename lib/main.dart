@@ -16,8 +16,9 @@ import 'package:test2/game.dart';
 import 'package:test2/chat.dart';
 //import 'package:permission_handler/permission_handler.dart';
 //import 'package:flutter/foundation.dart' show kIsWeb;
-import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+
 
 
 
@@ -48,7 +49,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context){
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: "Nolfymos " ,
+      title: "Nolly " ,
       theme: ThemeData(primarySwatch: Colors.orange),
       home: homePage(),
     );
@@ -89,6 +90,8 @@ class _homePageUISate extends State<homePage>{
 
               children:[
 
+
+
 //======================1ST POST============================
 
             Row(
@@ -112,7 +115,7 @@ class _homePageUISate extends State<homePage>{
                     border: Border.all(color:Colors.pinkAccent,width: 6),
                     //borderRadius: BorderRadius.circular(28), //<-- SEE HERE
                   ),
-                  child: Image.asset("assets/mimi.jpeg",height: 500,width: 500,fit: BoxFit.fill,),
+                  child: Image.asset("assets/mimi2.jpeg",height: 500,width: 500,fit: BoxFit.fill,),
                 ),
 
             Row(
@@ -140,7 +143,7 @@ class _homePageUISate extends State<homePage>{
                 ),
     ],
   ),
-                Text("556 likes",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),),
+                Text("841 likes",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),),
                 Text("Look at my mimi <3",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),),
 
 //========================2ND POST========================
@@ -249,7 +252,7 @@ class _homePageUISate extends State<homePage>{
                   ],
                 ),
                 Text("846 likes",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),),
-                Text("lil kiko sleepin <3",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),),
+                Text("My baby ",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),),
 
 //======================4TH POST============================
 
@@ -302,7 +305,7 @@ class _homePageUISate extends State<homePage>{
                     ),
                   ],
                 ),
-                Text("325 likes",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),),
+                Text("925 likes",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),),
                 Text("my majestic daughter",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),),
 
 //======================5TH POST============================
@@ -328,7 +331,7 @@ class _homePageUISate extends State<homePage>{
                     border: Border.all(color:Colors.pinkAccent,width: 6),
                     //borderRadius: BorderRadius.circular(28), //<-- SEE HERE
                   ),
-                  child: Image.asset("assets/joj.jpeg",height: 500,width: 500,fit: BoxFit.fill,),
+                  child: Image.asset("assets/lulu.jpeg",height: 500,width: 500,fit: BoxFit.fill,),
                 ),
 
                 Row(
@@ -357,7 +360,170 @@ class _homePageUISate extends State<homePage>{
                   ],
                 ),
                 Text("686 likes",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),),
-                Text("mood",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),),
+                Text("بوسي بوسي بوسي كات",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),),
+
+//======================6TH POST============================
+
+                Row(
+                    children: [
+
+                      SizedBox(height: 150,),
+
+                      CircleAvatar(
+                        radius: 40,
+                        backgroundImage: AssetImage("assets/joudy.jpeg",),
+                      ),
+                      SizedBox(width: 15,),
+                      Text("joudyahmeddd",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 30),),
+                    ]
+                ),
+
+                Container(
+                  height: 500,
+                  width: 500,
+                  decoration: BoxDecoration(
+                    border: Border.all(color:Colors.pinkAccent,width: 6),
+                    //borderRadius: BorderRadius.circular(28), //<-- SEE HERE
+                  ),
+                  child: Image.asset("assets/po.jpeg",height: 500,width: 500,fit: BoxFit.fill,),
+                ),
+
+                Row(
+                  children: [
+                    SizedBox(height: 15,),
+                    IconButton(
+                      onPressed:(){
+
+                      },
+                      icon:Icon(FontAwesomeIcons.heart,size: 30, color: Colors.pinkAccent,),
+                    ),
+                    SizedBox(height: 15,),
+                    IconButton(
+                      onPressed:(){
+
+                      },
+                      icon:Icon(FontAwesomeIcons.comment,size: 30, color: Colors.pinkAccent,),
+                    ),
+                    SizedBox(height: 15,),
+                    IconButton(
+                      onPressed:(){
+
+                      },
+                      icon:Icon(Icons.send,size: 30, color: Colors.pinkAccent,),
+                    ),
+                  ],
+                ),
+                Text("735 likes",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),),
+                Text("Madame bella est francaise",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),),
+
+//======================7TH POST============================
+
+                Row(
+                    children: [
+
+                      SizedBox(height: 150,),
+
+                      CircleAvatar(
+                        radius: 40,
+                        backgroundImage: AssetImage("assets/loji.jpeg",),
+                      ),
+                      SizedBox(width: 15,),
+                      Text("lojin_magdy19",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 30),),
+                    ]
+                ),
+
+                Container(
+                  height: 500,
+                  width: 500,
+                  decoration: BoxDecoration(
+                    border: Border.all(color:Colors.pinkAccent,width: 6),
+                    //borderRadius: BorderRadius.circular(28), //<-- SEE HERE
+                  ),
+                  child: Image.asset("assets/lola.jpeg",height: 500,width: 500,fit: BoxFit.fill,),
+                ),
+
+                Row(
+                  children: [
+                    SizedBox(height: 15,),
+                    IconButton(
+                      onPressed:(){
+
+                      },
+                      icon:Icon(FontAwesomeIcons.heart,size: 30, color: Colors.pinkAccent,),
+                    ),
+                    SizedBox(height: 15,),
+                    IconButton(
+                      onPressed:(){
+
+                      },
+                      icon:Icon(FontAwesomeIcons.comment,size: 30, color: Colors.pinkAccent,),
+                    ),
+                    SizedBox(height: 15,),
+                    IconButton(
+                      onPressed:(){
+
+                      },
+                      icon:Icon(Icons.send,size: 30, color: Colors.pinkAccent,),
+                    ),
+                  ],
+                ),
+                Text("686 likes",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),),
+                Text("يا خلاصواااا ",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),),
+
+
+//======================8TH POST============================
+
+                Row(
+                    children: [
+
+                      SizedBox(height: 150,),
+
+                      CircleAvatar(
+                        radius: 40,
+                        backgroundImage: AssetImage("assets/bos.jpeg",),
+                      ),
+                      SizedBox(width: 15,),
+                      Text("bbasssantttt",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 30),),
+                    ]
+                ),
+
+                Container(
+                  height: 500,
+                  width: 500,
+                  decoration: BoxDecoration(
+                    border: Border.all(color:Colors.pinkAccent,width: 6),
+                    //borderRadius: BorderRadius.circular(28), //<-- SEE HERE
+                  ),
+                  child: Image.asset("assets/pup.jpeg",height: 500,width: 500,fit: BoxFit.fill,),
+                ),
+
+                Row(
+                  children: [
+                    SizedBox(height: 15,),
+                    IconButton(
+                      onPressed:(){
+
+                      },
+                      icon:Icon(FontAwesomeIcons.heart,size: 30, color: Colors.pinkAccent,),
+                    ),
+                    SizedBox(height: 15,),
+                    IconButton(
+                      onPressed:(){
+
+                      },
+                      icon:Icon(FontAwesomeIcons.comment,size: 30, color: Colors.pinkAccent,),
+                    ),
+                    SizedBox(height: 15,),
+                    IconButton(
+                      onPressed:(){
+
+                      },
+                      icon:Icon(Icons.send,size: 30, color: Colors.pinkAccent,),
+                    ),
+                  ],
+                ),
+                Text("458 likes",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),),
+                Text("el geda doody",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),),
 
               ]
 

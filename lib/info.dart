@@ -97,7 +97,7 @@ class Info extends StatelessWidget {
                       onTap: (){
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => const dog()),
+                          MaterialPageRoute(builder: (context) => const Dog()),
                         );
                       },
                       child:Container(
@@ -195,7 +195,7 @@ class Info extends StatelessWidget {
                         child:Column(
                           mainAxisSize: MainAxisSize.min,
                           children:[
-                            Ink.image(image: AssetImage("assets/duck.jpeg",),
+                            Ink.image(image: AssetImage("assets/bird.jpeg",),
                               height: 145,
                               width: 170,
                               fit: BoxFit.cover,
@@ -236,7 +236,7 @@ class Info extends StatelessWidget {
                         child:Column(
                           mainAxisSize: MainAxisSize.min,
                           children:[
-                            Ink.image(image: AssetImage("assets/duck.jpeg",),
+                            Ink.image(image: AssetImage("assets/owl.jpeg",),
                               height: 145,
                               width: 170,
                               fit: BoxFit.cover,
@@ -277,7 +277,7 @@ class Info extends StatelessWidget {
                         child:Column(
                           mainAxisSize: MainAxisSize.min,
                           children:[
-                            Ink.image(image: AssetImage("assets/duck.jpeg",),
+                            Ink.image(image: AssetImage("assets/monk.jpeg",),
                               height: 145,
                               width: 170,
                               fit: BoxFit.cover,
@@ -324,7 +324,7 @@ class Info extends StatelessWidget {
                         child:Column(
                           mainAxisSize: MainAxisSize.min,
                           children:[
-                            Ink.image(image: AssetImage("assets/duck.jpeg",),
+                            Ink.image(image: AssetImage("assets/tur.jpeg",),
                               height: 145,
                               width: 170,
                               fit: BoxFit.cover,
@@ -365,7 +365,7 @@ class Info extends StatelessWidget {
                         child:Column(
                           mainAxisSize: MainAxisSize.min,
                           children:[
-                            Ink.image(image: AssetImage("assets/duck.jpeg",),
+                            Ink.image(image: AssetImage("assets/liz.jpeg",),
                               height: 145,
                               width: 170,
                               fit: BoxFit.cover,
@@ -406,7 +406,7 @@ class Info extends StatelessWidget {
                         child:Column(
                           mainAxisSize: MainAxisSize.min,
                           children:[
-                            Ink.image(image: AssetImage("assets/duck.jpeg",),
+                            Ink.image(image: AssetImage("assets/fish.jpeg",),
                               height: 145,
                               width: 170,
                               fit: BoxFit.cover,

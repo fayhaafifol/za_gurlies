@@ -16,6 +16,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 
 
+
 //Error: Unsupported operation: Platform._operatingSystem
 
 
@@ -56,22 +57,34 @@ class post_page extends State<Post>  {
 
   Future upload() async {
 
-    print("hello");
+    /*FirebaseStorage.instance
+        .ref()
+        .child('images/${Uri.file(_selectimg!.path).pathSegments.last}')
+        .putFile(_selectimg!)
+        .then((value) {value.ref.getDownloadURL();});*/
 
-    //final storage = FirebaseStorage.instanceFor(bucket: "gs://pet-project-de9a5.appspot.com");
+    final storage = FirebaseStorage.instance;
+
+    final storageRef = FirebaseStorage.instance.ref();
+
+    final spaceRef = storageRef.child("images/game.png");
 
 
-    var imgName = DateTime.now().microsecondsSinceEpoch.toString();
+
+
+
+    /*var imgName = DateTime.now().microsecondsSinceEpoch.toString();
 
     //Error: [firebase_storage/no-bucket] No default storage bucket could be found. Ensure you have correctly followed the Getting Started guide.
 
-    var reference = FirebaseStorage.instance.ref().child("images/$imgName.png");
+    var reference = FirebaseStorage.instance.ref().child('images/${Uri.file(_selectimg!.path).pathSegments.last}');
 
 
     var uploadPhoto  = reference.putFile(_selectimg!);
 
-    var downloadUrl= await(await uploadPhoto).ref.getDownloadURL();
-  }
+    var downloadUrl= await(await uploadPhoto).ref.getDownloadURL();*/
+
+        }
 
 
 
